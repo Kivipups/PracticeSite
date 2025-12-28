@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1.0" name="viewport" />
+  <title>Как Kivvi и Pestolett на практику ходили</title>
+  <link href="assets/logo.png" rel="icon" sizes="256x256" type="image/png" />
+  <link href="assets/logo.png" rel="icon" sizes="192x192" type="image/png" />
+  <link href="assets/logo.png" rel="apple-touch-icon" sizes="256x256" />
+  <link href="assets/logo.png" rel="icon" sizes="64x64" type="image/png" />
+  <link href="assets/logo.png" rel="icon" sizes="128x128" type="image/png" />
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;display=swap" rel="stylesheet" />
+  <link href="style.css" rel="stylesheet">
+  </link>
+</head>
+
+<body>
+  <audio id="bgm" src="assets/audio/home.mp3"></audio>
+  <div aria-label="Предупреждение" aria-modal="true" class="welcome-modal" id="welcome-modal" role="dialog">
+    <div class="welcome-card">
+      <img alt="Kivvi и Pestolett" class="welcome-img" src="assets/sprites/friends.png" />
+      <div class="welcome-text">
+        <p>Этот сайт — совместная работа двух студентов. Он создан, чтобы рассказать о прохождении учебной и
+          производственной практики.</p>
+        <p>На этом сайте рекомендуется:</p>
+        <ol>
+          <li>включить звук, чтобы опыт посещения был наиболее полным;</li>
+          <li>включить полноэкранный режим.</li>
+        </ol>
+        <p class="welcome-good">Приятного чтения!</p>
+      </div>
+      <button class="btn welcome-ok" id="welcome-ok">Хорошо</button>
+    </div>
+  </div>
+
+  <div aria-label="Управление звуком" class="music-control">
+    <button aria-label="Громкость" class="icon-btn" id="music-btn" title="Громкость"><span
+        class="icon">♬</span></button>
+    <div class="music-panel hidden" id="music-panel">
+      <div class="music-row">
+        <div class="track-label">Трек:</div>
+        <div class="track-title" id="track-title">—</div>
+      </div>
+      <div class="music-row">
+        <label for="volume-range">Громкость</label>
+        <div class="volume-wrap" id="volume-wrap">
+          <input id="volume-range" max="1" min="0" step="0.01" type="range" value="0.6" />
+        </div>
+      </div>
+      <div class="music-row">
+        <button class="btn small ghost" id="music-prev" title="Предыдущий трек">⟵</button>
+        <button class="btn small ghost" id="music-next" title="Следующий трек">⟶</button>
+      </div>
+      <div class="music-row">
+        <button class="btn small" id="music-toggle">Включить звук</button>
+        <button class="btn small ghost" id="music-mute">Выключить звук</button>
+      </div>
+      <div class="volume-hint">Если звук не играет, браузер может требовать первое действие (клик).</div>
+    </div>
+  </div>
+  <div aria-hidden="true" class="fade-layer" id="fade-layer"></div>
+  <section class="screen active" id="screen-menu">
+    <div aria-label="Главное меню" class="menu-sidebar" role="navigation">
+      <div class="menu-logo">
+        <div class="menu-title">Как Kivvi и Pestolett<br />на практику ходили</div>
+        <div class="menu-subtitle">Крутейший, невероятной красоты и гениальности совместный проект (а не эти ваши
+          твайны).</div>
+      </div>
+      <div class="menu-buttons">
+        <button class="menu-btn" id="btn-edu">Учебная практика</button>
+        <button class="menu-btn" id="btn-prod">Производственная практика</button>
+        <button class="menu-btn" id="btn-factory">Производство</button>
+        <button class="menu-btn" id="btn-certs">Сертификаты</button>
+        <button class="menu-btn" id="btn-info">Доп. информация</button>
+        <a class="menu-btn external" href="https://jcw87.github.io/c2-sans-fight/" rel="noopener" target="_blank">
+          Мини-игра
+        </a>
+      </div>
+      <div class="menu-footer">Нажмите на пункт меню слева, чтобы продолжить.</div>
+    </div>
+    <div aria-hidden="true" class="menu-stage">
+      <img alt="" class="menu-sprite menu-kivvi" src="assets/sprites/kivvi.png" />
+      <img alt="" class="menu-sprite menu-pestolett" src="assets/sprites/pestolett.png" />
+    </div>
+  </section>
+  <section class="screen" id="screen-select">
+    <div class="select-wrap">
+      <h2 class="select-title" id="select-title">Выбор персонажа</h2>
+      <div aria-label="Выбор персонажа" class="select-row" role="group">
+        <button aria-label="Выбрать Kivvi" class="select-card" data-pick="kivvi">
+          <img alt="Kivvi" class="select-sprite kivvi" src="assets/sprites/kivvi.png" />
+          <div class="select-name">Kivvi</div>
+        </button>
+        <button aria-label="Выбрать Pestolett" class="select-card" data-pick="pestolett">
+          <img alt="Pestolett" class="select-sprite pestolett" src="assets/sprites/pestolett.png" />
+          <div class="select-name">Pestolett</div>
+        </button>
+      </div>
+      <button class="btn ghost" id="btn-menu-from-select">В меню</button>
+    </div>
+  </section>
+  <section class="screen" id="screen-novel">
+    <div aria-hidden="true" class="vn-bg" id="vn-bg"></div>
+    <div aria-hidden="true" class="vn-characters">
+      <img alt="Kivvi" class="vn-sprite left kivvi" id="vn-left" />
+      <img alt="Pestolett" class="vn-sprite right pestolett" id="vn-right" />
+    </div>
+    <div aria-hidden="false" class="vn-media" id="vn-media"></div>
+    <img alt="overlay" class="vn-overlay hidden" id="vn-overlay" />
+    <div class="vn-ui" id="vn-ui">
+      <div class="vn-box">
+        <div class="vn-top">
+          <div class="vn-name" id="vn-name"></div>
+          <div class="vn-controls">
+            <button class="btn small" id="btn-history">История</button>
+            <button aria-pressed="false" class="btn small ghost" id="btn-auto">Авто</button>
+            <button class="btn small ghost" id="btn-menu-from-novel">В меню</button>
+          </div>
+        </div>
+        <div class="vn-text" id="vn-text"></div>
+        <div class="vn-actions">
+          <div class="vn-actions-left">
+            <button class="btn ghost" id="btn-back">Назад</button>
+            <button class="btn" id="btn-next">Дальше</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div aria-label="История диалогов" aria-modal="true" class="modal hidden" id="history-modal" role="dialog">
+      <div class="modal-card">
+        <div class="modal-head">
+          <div class="modal-title">История</div>
+          <button aria-label="Закрыть" class="btn small ghost" id="history-close">Закрыть</button>
+        </div>
+        <div class="history-list" id="history-list"></div>
+      </div>
+    </div>
+  </section>
+  <section class="screen" id="screen-certs">
+    <div class="certs-wrap">
+      <div class="certs-head">
+        <div>
+          <h2 class="certs-title" id="certs-title">Сертификаты</h2>
+          <div class="certs-subtitle" id="certs-subtitle"></div>
+        </div>
+        <button class="btn ghost" id="btn-menu-from-certs">В меню</button>
+      </div>
+      <div aria-label="Список сертификатов" class="certs-list" id="certs-list"></div>
+    </div>
+  </section>
+  <section class="screen" id="screen-info">
+    <div class="info-wrap">
+      <div class="info-head">
+        <div>
+          <h2 class="info-title">Доп. информация</h2>
+          <div class="info-subtitle" id="info-subtitle"></div>
+        </div>
+        <button class="btn ghost" id="btn-menu-from-info">В меню</button>
+      </div>
+      <div aria-label="Ссылки" class="info-list" id="info-list"></div>
+    </div>
+  </section>
+  <div aria-modal="true" class="img-modal hidden" id="img-modal" role="dialog">
+    <button aria-label="Закрыть" class="img-modal-close" id="img-modal-close">×</button>
+    <img alt="certificate" id="img-modal-img" />
+    <div class="img-modal-caption" id="img-modal-caption"></div>
+  </div>
+  <button aria-label="secret" id="easter-btn">?</button>
+  <script src="script.js"></script>
+</body>
+
+</html>
