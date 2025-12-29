@@ -64,7 +64,7 @@ const INFO_LINKS = {
   },
   pestolett: {
     drive: "https://drive.google.com/drive/folders/1nITHWp53Fu3koJzYFWvjVHfJsKqK1sIU?usp=drive_link",
-    github: "https://github.com/Meminttaa/-Practice",
+    github: "https://github.com/Meminttaa/PPnUP",
   },
 };
 
